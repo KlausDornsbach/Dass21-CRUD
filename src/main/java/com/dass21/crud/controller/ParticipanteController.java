@@ -40,10 +40,7 @@ public class ParticipanteController {
         List<Participante> participantes = participanteService.getAllParticipantes();
         List<ParticipanteRespostaDTO> respostas;
         try {
-            respostas = participantes.stream()
-                    .map(participante -> this.constructParticipanteRespostaDTO(participante,
-                            respostaService.findRespostaByParticipante(participante).get()))
-                    .toList();
+            respostas = participanteService.getAllParticipanteRespostaDTO(participantes);
         } catch (Exception e) {
             throw e;
 //            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -62,15 +59,19 @@ public class ParticipanteController {
         return new ResponseEntity<>("Participante e resposta atualizados", HttpStatus.ACCEPTED);
     }
 
-    private ParticipanteRespostaDTO constructParticipanteRespostaDTO(Participante participante, Resposta resposta) {
-        return new ParticipanteRespostaDTO(
-                participante.getId(), participante.getIdade(), participante.getGenero(), resposta.getDataResposta(),
-                resposta.getPontuacaoTotalAnsiedade(),
-                respostaService.getScale(Condicao.ANSIEDADE, resposta.getPontuacaoTotalAnsiedade()),
-                resposta.getPontuacaoTotalDepressao(),
-                respostaService.getScale(Condicao.DEPRESSAO, resposta.getPontuacaoTotalDepressao()),
-                resposta.getPontuacaoTotalEstresse(),
-                respostaService.getScale(Condicao.ESTRESSE, resposta.getPontuacaoTotalEstresse())
-        );
+    @GetMapping("/{id}")
+    public ResponseEntity<ParticipanteRespostaDTO> handleGetSingleParticipante(@PathVariable Long id) {
+        Optional<Participante> participanteDb = participanteService.getParticipante(id);
+
+        if (participanteDb.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        Optional<Resposta> respostaDb = respostaService.findRespostaByParticipante(participanteDb.get());
+
+        if (respostaDb.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        ParticipanteRespostaDTO response = participanteService.constructParticipanteRespostaDTO(participanteDb.get(), respostaDb.get());
+        return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 }
