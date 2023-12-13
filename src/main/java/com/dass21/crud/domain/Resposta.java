@@ -41,5 +41,12 @@ public class Resposta {
         this.pontuacaoTotalDepressao = respostaDTO.pontuacaoTotalDepressao();
         this.pontuacaoTotalEstresse = respostaDTO.pontuacaoTotalEstresse();
     }
+
+    public void update(RespostaDTO respostaDTO) {
+        this.dataResposta = LocalDateTime.now();
+        this.pontuacaoTotalAnsiedade = respostaDTO.pontuacaoTotalAnsiedade();
+        this.pontuacaoTotalDepressao = respostaDTO.pontuacaoTotalDepressao();
+        this.pontuacaoTotalEstresse = respostaDTO.pontuacaoTotalEstresse();
+    }
 }
 

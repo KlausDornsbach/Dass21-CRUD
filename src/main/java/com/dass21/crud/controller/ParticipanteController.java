@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/participante")
@@ -40,12 +41,25 @@ public class ParticipanteController {
         List<ParticipanteRespostaDTO> respostas;
         try {
             respostas = participantes.stream()
-                    .map(participante -> this.constructParticipanteRespostaDTO(participante, respostaService.findRespostaByParticipante(participante))).toList();
+                    .map(participante -> this.constructParticipanteRespostaDTO(participante,
+                            respostaService.findRespostaByParticipante(participante).get()))
+                    .toList();
         } catch (Exception e) {
             throw e;
 //            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(respostas, HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<String> handlePutParticipante(@PathVariable Long id, @RequestBody ParticipanteDTO participante) {
+        Optional<Participante> participanteDb = participanteService.getParticipante(id);
+        if (participanteDb.isEmpty()) {
+            return new ResponseEntity<>("nao foi achado um participante com o id especificado", HttpStatus.BAD_REQUEST);
+        }
+        participanteDb.get().update(participante);
+        participanteService.saveParticipante(participanteDb.get());
+        return new ResponseEntity<>("Participante e resposta atualizados", HttpStatus.ACCEPTED);
     }
 
     private ParticipanteRespostaDTO constructParticipanteRespostaDTO(Participante participante, Resposta resposta) {

@@ -30,4 +30,10 @@ public class Participante {
         this.idade = participanteDTO.idade();
         this.genero = participanteDTO.genero();
     }
+
+    public void update(ParticipanteDTO participanteDTO) {
+        this.nome = participanteDTO.nome();
+        this.idade = participanteDTO.idade();
+        this.genero = participanteDTO.genero();
+    }
 }

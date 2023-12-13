@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RespostaService {
@@ -20,11 +21,11 @@ public class RespostaService {
         respostaRepository.save(resposta);
     }
 
-    public Resposta getResposta(Long id) {
-        return respostaRepository.getReferenceById(id);
+    public Optional<Resposta> getResposta(Long id) {
+        return respostaRepository.findRespostaById(id);
     }
 
-    public Resposta findRespostaByParticipante(Participante p) { return respostaRepository.findByParticipante(p); }
+    public Optional<Resposta> findRespostaByParticipante(Participante p) { return respostaRepository.findByParticipante(p); }
 
     public boolean verifyScoreValidity(RespostaDTO respostaDTO) {
         return respostaDTO.pontuacaoTotalAnsiedade() >= 0
