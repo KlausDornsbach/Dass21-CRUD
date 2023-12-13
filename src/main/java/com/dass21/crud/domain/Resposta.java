@@ -18,7 +18,7 @@ public class Resposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade=CascadeType.PERSIST)
+    @OneToOne
     @JoinColumn(name = "participante_id")
     private Participante participante;
 

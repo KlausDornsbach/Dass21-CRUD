@@ -32,12 +32,24 @@ public class ParticipanteService {
 
     public List<ParticipanteRespostaDTO> getAllParticipanteRespostaDTO(List<Participante> participantes) {
         return participantes.stream()
-                .map(participante -> this.constructParticipanteRespostaDTO(participante,
-                        respostaService.findRespostaByParticipante(participante).get()))
+                .map(participante -> {
+                    Optional<Resposta> r = respostaService.findRespostaByParticipante(participante);
+                    if (r.isEmpty()) {
+                        return this.constructParticipanteRespostaDTO(participante, null);
+                    }
+                    return this.constructParticipanteRespostaDTO(participante, r.get());
+                })
                 .toList();
     }
 
     public ParticipanteRespostaDTO constructParticipanteRespostaDTO(Participante participante, Resposta resposta) {
+        if (resposta == null) {
+            return new ParticipanteRespostaDTO(
+                    participante.getId(), participante.getIdade(), participante.getGenero(),
+                    null, null, null, null, null, null, null
+            );
+        }
+
         return new ParticipanteRespostaDTO(
                 participante.getId(), participante.getIdade(), participante.getGenero(), resposta.getDataResposta(),
                 resposta.getPontuacaoTotalAnsiedade(),

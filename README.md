@@ -18,8 +18,8 @@ or use your own IDE run environment
 - [x] 3 - Conecte com DB de sua escolha (PostgreSQL)
 - [x] 4 - Crie um método /POST, para fazer novas inserções no banco de dados enviando como parâmetro o usuário, bem como suas respostas de acordo com a estrutura existente no banco
 - [x] 5 - Crie um método /GET, que retorna uma lista, com todos os usuários cadastrados no banco de dados, bem como suas respectivas pontuações e escalas. Atente-se ao fato de que precisará adicionar a lógica das escalas, da forma que considerar ideal para este cenário.
-- [ ] 6 - Crie um método /PUT para alterar dados de usuarios (participantes)
-- [ ] 7 - Crie um método /GET retornando um usuario especifico.
-- [ ] 8 - Testar
+- [x] 6 - Crie um método /PUT para alterar dados de usuarios (participantes)
+- [x] 7 - Crie um método /GET retornando um usuario especifico.
+- [x] 8 - Testes spring
 
 ### Author: Klaus de Freitas Dornsbach
