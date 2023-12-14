@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "0019c67e-151c-4bd6-8fa6-2169e38d27d2",
+		"name": "FIESC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20464678"
+	},
+	"item": [
+		{
+			"name": "Add participante",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"alfred\",\n    \"idade\": 22,\n    \"genero\": \"masc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/participante/adicionar",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"participante",
+						"adicionar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add resposta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"pontuacaoTotalDepressao\": 10,\n    \"pontuacaoTotalAnsiedade\": 10,\n    \"pontuacaoTotalEstresse\" : 11\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/resposta/adicionar",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"resposta",
+						"adicionar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put participante",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"jerico\",\n    \"idade\": 21,\n    \"genero\": \"fem\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/participante/atualizar/1",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"participante",
+						"atualizar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put resposta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"pontuacaoTotalDepressao\": 0,\n    \"pontuacaoTotalAnsiedade\": 0,\n    \"pontuacaoTotalEstresse\" : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/resposta/atualizar",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"resposta",
+						"atualizar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all participantes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/todos",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add full form",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"roberta\",\n    \"idade\": 30,\n    \"genero\": \"fem\",\n    \"pontuacaoTotalDepressao\": 2,\n    \"pontuacaoTotalAnsiedade\": 2,\n    \"pontuacaoTotalEstresse\" : 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/adicionar",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"adicionar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put form",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"gertrude\",\n    // \"idade\": 10,\n    // \"genero\": \"masculino\",\n    \"pontuacaoTotalDepressao\": 20\n    // \"pontuacaoTotalAnsiedade\": 2,\n    // \"pontuacaoTotalEstresse\" : 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/atualizar/1",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"atualizar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single participante",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/participante/3",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"participante",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
