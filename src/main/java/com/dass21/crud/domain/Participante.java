@@ -20,7 +20,7 @@ public class Participante {
     private String nome;
 
     @Column(nullable = false)
-    private int idade;
+    private Integer idade;
 
     @Column(nullable = false)
     private String genero;
@@ -29,6 +29,12 @@ public class Participante {
         this.nome = participanteDTO.nome();
         this.idade = participanteDTO.idade();
         this.genero = participanteDTO.genero();
+    }
+
+    public Participante(String nome, Integer idade, String genero) {
+        this.nome = nome;
+        this.idade = idade;
+        this.genero = genero;
     }
 
     public void update(ParticipanteDTO participanteDTO) {

@@ -13,17 +13,22 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Resposta {
+public class Resposta implements Comparable<Resposta> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "participante_id")
     private Participante participante;
 
     @Column(name = "data_resposta", nullable = false)
     private LocalDateTime dataResposta;
+
+    @Override
+    public int compareTo(Resposta r) {
+        return getDataResposta().compareTo(r.getDataResposta());
+    }
 
     @Column(name = "pontuacao_total_depressao", nullable = false)
     private int pontuacaoTotalDepressao;
@@ -40,6 +45,14 @@ public class Resposta {
         this.pontuacaoTotalAnsiedade = respostaDTO.pontuacaoTotalAnsiedade();
         this.pontuacaoTotalDepressao = respostaDTO.pontuacaoTotalDepressao();
         this.pontuacaoTotalEstresse = respostaDTO.pontuacaoTotalEstresse();
+    }
+
+    public Resposta(Participante participante, Integer ansiedade, Integer depressao, Integer estresse) {
+        this.participante = participante;
+        this.dataResposta = LocalDateTime.now();
+        this.pontuacaoTotalAnsiedade = ansiedade;
+        this.pontuacaoTotalDepressao = depressao;
+        this.pontuacaoTotalEstresse = estresse;
     }
 
     public void update(RespostaDTO respostaDTO) {

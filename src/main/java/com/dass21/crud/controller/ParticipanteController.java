@@ -7,6 +7,8 @@ import com.dass21.crud.dto.ParticipanteDTO;
 import com.dass21.crud.dto.ParticipanteRespostaDTO;
 import com.dass21.crud.service.ParticipanteService;
 import com.dass21.crud.service.RespostaService;
+import com.dass21.crud.util.MyUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,28 +37,16 @@ public class ParticipanteController {
         return new ResponseEntity<>("criou participante com id: " + participante.getId(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<ParticipanteRespostaDTO>> handleGetAllParticipantesRespostas() {
-        List<Participante> participantes = participanteService.getAllParticipantes();
-        List<ParticipanteRespostaDTO> respostas;
-        try {
-            respostas = participanteService.getAllParticipanteRespostaDTO(participantes);
-        } catch (Exception e) {
-            throw e;
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(respostas, HttpStatus.ACCEPTED);
-    }
-
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<String> handlePutParticipante(@PathVariable Long id, @RequestBody ParticipanteDTO participante) {
-        Optional<Participante> participanteDb = participanteService.getParticipante(id);
-        if (participanteDb.isEmpty()) {
+        Optional<Participante> optionalParticipante = participanteService.getParticipante(id);
+        if (optionalParticipante.isEmpty()) {
             return new ResponseEntity<>("nao foi achado um participante com o id especificado", HttpStatus.BAD_REQUEST);
         }
-        participanteDb.get().update(participante);
-        participanteService.saveParticipante(participanteDb.get());
-        return new ResponseEntity<>("Participante e resposta atualizados", HttpStatus.ACCEPTED);
+        Participante participanteDb = optionalParticipante.get();
+        BeanUtils.copyProperties(participante, participanteDb, MyUtils.getNullPropertyNames(participante));
+        participanteService.saveParticipante(participanteDb);
+        return new ResponseEntity<>("Participante atualizado", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{id}")

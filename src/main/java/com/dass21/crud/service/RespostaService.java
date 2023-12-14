@@ -8,10 +8,7 @@ import com.dass21.crud.repository.RespostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class RespostaService {
@@ -25,14 +22,21 @@ public class RespostaService {
         return respostaRepository.findRespostaById(id);
     }
 
-    public Optional<Resposta> findRespostaByParticipante(Participante p) { return respostaRepository.findByParticipante(p); }
+    // this method returns the last Resposta on the DB based on data_resposta
+    public Optional<Resposta> findRespostaByParticipante(Participante p) {
+        ArrayList<Resposta> respostas = respostaRepository.findByParticipante(p);
+        Collections.sort(respostas);
+        if (respostas.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(respostas.get(respostas.size() - 1));
+    }
 
     public boolean verifyScoreValidity(RespostaDTO respostaDTO) {
         return respostaDTO.pontuacaoTotalAnsiedade() >= 0
                 && respostaDTO.pontuacaoTotalDepressao() >= 0
                 && respostaDTO.pontuacaoTotalEstresse() >= 0;
     }
-
 
     public String getScale(Condicao condicao, int score) {
         List<String> symptomsArray = Arrays.asList(
