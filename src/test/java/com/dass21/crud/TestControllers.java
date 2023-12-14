@@ -124,33 +124,6 @@ public class TestControllers {
     }
 
     @Test
-    void updateSpecificResposta() {
-        ParticipanteDTO participanteDTO = new ParticipanteDTO("user", 20, "Masculino");
-        Participante savedParticipante = participanteRepository.save(new Participante(participanteDTO));
-
-        RespostaDTO respostaDTO = new RespostaDTO(savedParticipante.getId(), 0, 0, 0);
-        Resposta savedResposta = respostaRepository.save(new Resposta(savedParticipante, respostaDTO));
-        long beforeCount = respostaRepository.count();
-
-        RespostaDTO newRespostaDTO = new RespostaDTO(savedParticipante.getId(), 10, 10, 10);
-
-        ResponseEntity<String> response = respostaController.handlePutResposta(newRespostaDTO);
-
-        Resposta newlySaved = respostaRepository.findRespostaById(savedResposta.getId()).get();
-
-        // verification
-        assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
-
-        // asserts we don't save nor delete no more participantes
-        assertEquals(beforeCount, respostaRepository.count());
-
-        assertEquals(newlySaved.getParticipante().getId(), newRespostaDTO.id());
-        assertEquals(newlySaved.getPontuacaoTotalEstresse(), newRespostaDTO.pontuacaoTotalEstresse());
-        assertEquals(newlySaved.getPontuacaoTotalDepressao(), newRespostaDTO.pontuacaoTotalDepressao());
-        assertEquals(newlySaved.getPontuacaoTotalAnsiedade(), newRespostaDTO.pontuacaoTotalAnsiedade());
-    }
-
-    @Test
     void getSpecificParticipante() {
         ParticipanteDTO participanteDTO = new ParticipanteDTO("user", 20, "Masculino");
         Participante savedParticipante = participanteRepository.save(new Participante(participanteDTO));

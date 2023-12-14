@@ -8,9 +8,10 @@ $ sudo apt-get install docker-compose \
 $ sudo docker-compose up 
 
 after your db is running, to run the actual spring CRUD you should use: \
-$ ./gradlew clean run 
+$ ./gradlew clean build
+$ ./gradlew run
 
-or use your own IDE run environment
+or use your own IDE run environment to run the main CrudApplication file
 
 I have taken the liberty to add my postman collection, so you can import it and start accessing the api.\
 
